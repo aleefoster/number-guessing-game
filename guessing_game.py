@@ -24,26 +24,30 @@ def start_game(game_number, high_score):
     print("Enter a number between 1 and 100.")
     while playing:
         guess = input("Guess #{}:  ".format(guess_number))
-        guess_number += 1
         if guess.upper() == "QUIT":
             print("Thanks for playing!")
             break
-        elif int(guess) < 1 or int(guess) > 100:
-            print("Your guess is out of range, try again!")
-        elif int(guess) > random_number:
-            print("Your guess is too high, try again!")
-        elif int(guess) < random_number:
-            print("Your guess is too low, try again!")
-        elif int(guess) == random_number:
-            print("Congratulations!  You guessed the number in {} tries!".format(guess_number))
-            if game_number == 1:
-                high_score = guess_number
-            else:
-                if guess_number < high_score:
-                    print("You beat the high score! Good job!")
-                    high_score = guess_number    
-            game_number += 1
-            playing = False
+        else:
+            try:
+                if int(guess) < 1 or int(guess) > 100:
+                    print("Your guess is out of range, try again!")
+                elif int(guess) > random_number:
+                    print("Your guess is too high, try again!")
+                elif int(guess) < random_number:
+                    print("Your guess is too low, try again!")
+                elif int(guess) == random_number:
+                    print("Congratulations!  You guessed the number in {} tries!".format(guess_number))
+                    if game_number == 1:
+                        high_score = guess_number
+                    else:
+                        if guess_number < high_score:
+                            print("You beat the high score! Good job!")
+                            high_score = guess_number    
+                    game_number += 1
+                    playing = False
+                guess_number += 1
+            except ValueError:
+                print("Try again, that was not a valid number")
             
     else:
         if input("Play again? (y/n)  ").lower() != 'n':
@@ -56,9 +60,10 @@ if __name__ == '__main__':
     clear_screen()        
     print("Welcome to Guess the Number!")
     print("To play, enter a number between 1 and 100. Try to guess the number in as few attempts as possible! Have fun!")
+    print("To end the game at any time, enter 'QUIT'")
     input("Press return to start!")
     clear_screen()
     game_number = 1
     high_score = 0
     start_game(game_number, high_score)
- 
+    
